@@ -16,8 +16,8 @@ export const goods = [
 ];
 
 export const App = () => {
-  const [isGood, setGood] = useState('');
-  const [isActive, setIsActive] = useState(null);
+  const [isGood, setGood] = useState('Jam');
+  const [isActive, setIsActive] = useState('Jam');
 
   const handleClick = good => {
     if (isActive === good) {
@@ -33,15 +33,17 @@ export const App = () => {
     <main className="section container">
       <h1 className="title is-flex is-align-items-center">
         {isGood === '' ? 'No goods selected' : `${isGood} is selected`}
-        <button
-          data-cy="ClearButton"
-          type="button"
-          className="delete ml-3"
-          onClick={() => {
-            setGood('');
-            setIsActive(null);
-          }}
-        />
+        {isGood === '' ? null : (
+          <button
+            data-cy="ClearButton"
+            type="button"
+            className="delete ml-3"
+            onClick={() => {
+              setGood('');
+              setIsActive(null);
+            }}
+          />
+        )}
       </h1>
 
       <table className="table">
@@ -55,9 +57,9 @@ export const App = () => {
             >
               <td>
                 <button
-                  data-cy="AddButton"
+                  data-cy={isActive === good ? 'RemoveButton' : 'AddButton'}
                   type="button"
-                  className="button"
+                  className={isActive === good ? 'button is-info' : 'button'}
                   onClick={() => {
                     handleClick(good);
                   }}
